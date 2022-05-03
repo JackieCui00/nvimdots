@@ -62,7 +62,7 @@ local load_core = function()
 
 	pack.load_compile()
 
-	vim.cmd([[colorscheme slate]])
+	-- vim.cmd([[colorscheme slate]])
 end
 
 load_core()
