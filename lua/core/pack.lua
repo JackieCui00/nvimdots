@@ -1,9 +1,11 @@
+local log = require("core.log")
 local globals = require("core.globals")
 
 local is_mac = globals.is_mac
-local config_dir = globals.config_dir
+local lua_dir = globals.lua_dir
 local data_dir = globals.data_dir
-local modules_dir = globals.module_dirs
+local modules_dir = globals.modules_dir
+log.debug("modules_dir: " .. modules_dir)
 
 local packer_compiled = data_dir .. "lua/_compiled.lua"
 local bak_compiled = data_dir .. "lua/bak_compiled.lua"
@@ -17,10 +19,13 @@ function PackerMgr:load_plugins()
 
 	local get_plugins_list = function()
 		local list = {}
-		local tmp = vim.split(vim.fn.globpath(modules_dir, "*/plugins.lua"), "\n")
+        local plugins = vim.fn.globpath(modules_dir, "*/plugins.lua")
+        log.debug("plugins: " .. plugins)
+
+		local tmp = vim.split(plugins, "\n")
 		for _, path in ipairs(tmp) do
 			list[#list + 1] = path:sub(#modules_dir - 6, -1)
-			print(list[#list])
+			log.debug("Add plugins.lua:" .. list[#list])
 		end
 
 		return list
@@ -28,6 +33,8 @@ function PackerMgr:load_plugins()
 
 	local plugins_file = get_plugins_list()
 	for _, m in ipairs(plugins_file) do
+        log.debug("Requiring " .. m)
+
 		local repos = require(m:sub(0, #m - 4))
 		for repo, conf in pairs(repos) do
 			self.repos[#self.repos + 1] = vim.tbl_extend("force", {repo}, conf)

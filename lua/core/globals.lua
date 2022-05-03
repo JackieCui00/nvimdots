@@ -1,7 +1,7 @@
-local global = {}
+local globals = {}
 local os_name = vim.loop.os_uname().sysname
 
-function global:load_variable()
+function globals:load_variable()
 	self.is_mac = os_name == "Darwin"
 	self.is_linux = os_name == "Linux"
 	self.is_windows = os_name == "Windows_NT"
@@ -11,11 +11,11 @@ function global:load_variable()
 
 	self.home = home
 	self.cache_dir = home .. path_sep .. ".cache" .. path_sep .. "nvim" .. path_sep
-	self.config_dir = vim.fn.stdpath("config")
-	self.modules_dir = self.config_dir .. path_sep .. "modules"
+	self.lua_dir = vim.fn.stdpath("config") .. path_sep .. "lua"
+	self.modules_dir = self.lua_dir .. path_sep .. "modules"
 	self.data_dir = string.format("%s/site/", vim.fn.stdpath("data"))
 end
 
-global:load_variable()
+globals:load_variable()
 
-return global
+return globals
