@@ -176,4 +176,378 @@ function config.nvim_tree()
     })
 end
 
+function config.gitsigns()
+	require("gitsigns").setup({
+		signs = {
+			add = {
+				hl = "GitSignsAdd",
+				text = "│",
+				numhl = "GitSignsAddNr",
+				linehl = "GitSignsAddLn",
+			},
+			change = {
+				hl = "GitSignsChange",
+				text = "│",
+				numhl = "GitSignsChangeNr",
+				linehl = "GitSignsChangeLn",
+			},
+			delete = {
+				hl = "GitSignsDelete",
+				text = "_",
+				numhl = "GitSignsDeleteNr",
+				linehl = "GitSignsDeleteLn",
+			},
+			topdelete = {
+				hl = "GitSignsDelete",
+				text = "‾",
+				numhl = "GitSignsDeleteNr",
+				linehl = "GitSignsDeleteLn",
+			},
+			changedelete = {
+				hl = "GitSignsChange",
+				text = "~",
+				numhl = "GitSignsChangeNr",
+				linehl = "GitSignsChangeLn",
+			},
+		},
+		keymaps = {
+			-- Default keymap options
+			noremap = true,
+			buffer = true,
+			["n ]g"] = {
+				expr = true,
+				"&diff ? ']g' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
+			},
+			["n [g"] = {
+				expr = true,
+				"&diff ? '[g' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
+			},
+			["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+			["v <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+			["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+			["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+			["v <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+			["n <leader>hR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+			["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+			["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+			-- Text objects
+			["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
+			["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
+		},
+		watch_gitdir = { interval = 1000, follow_files = true },
+		current_line_blame = true,
+		current_line_blame_opts = { delay = 1000, virtual_text_pos = "eol" },
+		sign_priority = 6,
+		update_debounce = 100,
+		status_formatter = nil, -- Use default
+		word_diff = false,
+		diff_opts = { internal = true },
+	})
+end
+
+function config.nvim_bufferline()
+	require("bufferline").setup({
+		options = {
+			number = "none",
+			modified_icon = "✥",
+			buffer_close_icon = "",
+			left_trunc_marker = "",
+			right_trunc_marker = "",
+			max_name_length = 14,
+			max_prefix_length = 13,
+			tab_size = 20,
+			show_buffer_close_icons = true,
+			show_buffer_icons = true,
+			show_tab_indicators = true,
+			diagnostics = "nvim_lsp",
+			always_show_bufferline = true,
+			separator_style = "thin",
+			offsets = {
+				{
+					filetype = "NvimTree",
+					text = "File Explorer",
+					text_align = "center",
+					padding = 1,
+				},
+			},
+		},
+	})
+end
+
+function config.nvim_scrollbar()
+    require("scrollbar").setup({
+        show = true,
+        set_highlights = true,
+        folds = 1000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
+        max_lines = false, -- disables if no. of lines in buffer exceeds this
+        handle = {
+            text = " ",
+            color = nil,
+            cterm = nil,
+            highlight = "CursorColumn",
+            hide_if_all_visible = true, -- Hides handle if all lines are visible
+        },
+        marks = {
+            Search = {
+                text = { "-", "=" },
+                priority = 0,
+                color = nil,
+                cterm = nil,
+                highlight = "Search",
+            },
+            Error = {
+                text = { "-", "=" },
+                priority = 1,
+                color = nil,
+                cterm = nil,
+                highlight = "DiagnosticVirtualTextError",
+            },
+            Warn = {
+                text = { "-", "=" },
+                priority = 2,
+                color = nil,
+                cterm = nil,
+                highlight = "DiagnosticVirtualTextWarn",
+            },
+            Info = {
+                text = { "-", "=" },
+                priority = 3,
+                color = nil,
+                cterm = nil,
+                highlight = "DiagnosticVirtualTextInfo",
+            },
+            Hint = {
+                text = { "-", "=" },
+                priority = 4,
+                color = nil,
+                cterm = nil,
+                highlight = "DiagnosticVirtualTextHint",
+            },
+            Misc = {
+                text = { "-", "=" },
+                priority = 5,
+                color = nil,
+                cterm = nil,
+                highlight = "Normal",
+            },
+        },
+        excluded_buftypes = {
+            "terminal",
+        },
+        excluded_filetypes = {
+            "prompt",
+            "TelescopePrompt",
+        },
+        autocmd = {
+            render = {
+                "BufWinEnter",
+                "TabEnter",
+                "TermEnter",
+                "WinEnter",
+                "CmdwinLeave",
+                "TextChanged",
+                "VimResized",
+                "WinScrolled",
+            },
+        },
+        handlers = {
+            diagnostic = true,
+            search = false, -- Requires hlslens to be loaded, will run require("scrollbar.handlers.search").setup() for you
+        },
+    })
+end
+
+function config.indent_blankline()
+	vim.opt.termguicolors = true
+	vim.opt.list = true
+	require("indent_blankline").setup({
+		char = "│",
+		show_first_indent_level = true,
+		filetype_exclude = {
+			"startify",
+			"dashboard",
+			"dotooagenda",
+			"log",
+			"fugitive",
+			"gitcommit",
+			"packer",
+			"vimwiki",
+			"markdown",
+			"json",
+			"txt",
+			"vista",
+			"help",
+			"todoist",
+			"NvimTree",
+			"peekaboo",
+			"git",
+			"TelescopePrompt",
+			"undotree",
+			"flutterToolsOutline",
+			"", -- for all buffers without a file type
+		},
+		buftype_exclude = { "terminal", "nofile" },
+		show_trailing_blankline_indent = false,
+		show_current_context = true,
+		context_patterns = {
+			"class",
+			"function",
+			"method",
+			"block",
+			"list_literal",
+			"selector",
+			"^if",
+			"^table",
+			"if_statement",
+			"while",
+			"for",
+			"type",
+			"var",
+			"import",
+		},
+		space_char_blankline = " ",
+	})
+	-- because lazy load indent-blankline so need readd this autocmd
+	vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
+end
+
+function config.nvim_gps()
+	require("nvim-gps").setup({
+		icons = {
+			["class-name"] = " ", -- Classes and class-like objects
+			["function-name"] = " ", -- Functions
+			["method-name"] = " ", -- Methods (functions inside class-like objects)
+		},
+		languages = {
+			-- You can disable any language individually here
+			["c"] = true,
+			["cpp"] = true,
+			["go"] = true,
+			["java"] = true,
+			["javascript"] = true,
+			["lua"] = true,
+			["python"] = true,
+			["rust"] = true,
+		},
+		separator = " > ",
+	})
+end
+
+function config.lualine()
+	local gps = require("nvim-gps")
+
+	local function gps_content()
+		if gps.is_available() then
+			return gps.get_location()
+		else
+			return ""
+		end
+	end
+	local mini_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = { "location" },
+	}
+	local simple_sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "filetype" },
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = { "location" },
+	}
+	local minimap = {
+		sections = mini_sections,
+		filetypes = { "minimap" },
+	}
+	local aerial = {
+		sections = mini_sections,
+		filetypes = { "aerial" },
+	}
+	local dapui_scopes = {
+		sections = simple_sections,
+		filetypes = { "dapui_scopes" },
+	}
+
+	local dapui_breakpoints = {
+		sections = simple_sections,
+		filetypes = { "dapui_breakpoints" },
+	}
+
+	local dapui_stacks = {
+		sections = simple_sections,
+		filetypes = { "dapui_stacks" },
+	}
+
+	local dapui_watches = {
+		sections = simple_sections,
+		filetypes = { "dapui_watches" },
+	}
+
+	require("lualine").setup({
+		options = {
+			icons_enabled = true,
+			theme = "catppuccin",
+			disabled_filetypes = {},
+			component_separators = "|",
+			section_separators = { left = "", right = "" },
+		},
+		sections = {
+			lualine_a = { "mode" },
+			lualine_b = { { "branch" }, { "diff" } },
+			lualine_c = {
+				{ "lsp_progress" },
+				{ gps_content, cond = gps.is_available },
+			},
+			lualine_x = {
+				{
+					"diagnostics",
+					sources = { "nvim_diagnostic" },
+					symbols = { error = " ", warn = " ", info = " " },
+				},
+			},
+			lualine_y = {
+				{
+					"filetype",
+					"encoding",
+				},
+				{
+					"fileformat",
+					icons_enabled = true,
+					symbols = {
+						unix = "LF",
+						dos = "CRLF",
+						mac = "CR",
+					},
+				},
+			},
+			lualine_z = { "progress", "location" },
+		},
+		inactive_sections = {
+			lualine_a = {},
+			lualine_b = {},
+			lualine_c = { "filename" },
+			lualine_x = { "location" },
+			lualine_y = {},
+			lualine_z = {},
+		},
+		tabline = {},
+		extensions = {
+			"quickfix",
+			"nvim-tree",
+			"toggleterm",
+			"fugitive",
+			minimap,
+			aerial,
+			dapui_scopes,
+			dapui_breakpoints,
+			dapui_stacks,
+			dapui_watches,
+		},
+	})
+end
+
 return config
