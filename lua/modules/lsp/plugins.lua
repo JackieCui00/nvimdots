@@ -14,6 +14,7 @@ lsp["creativenull/efmls-configs-nvim"] = {
 -- to install language servers
 lsp["williamboman/nvim-lsp-installer"] = {
 	opt = true,
+    cmd = {"LspInstall", "LspInstallInfo"},
 	after = "nvim-lspconfig",
 }
 
@@ -65,5 +66,13 @@ lsp["L3MON4D3/LuaSnip"] = {
 	config = conf.luasnip,
 	requires = "rafamadriz/friendly-snippets",
 }
+
+lsp["simrat39/symbols-outline.nvim"] = {
+    opt = true,
+    event = "BufRead",
+    cmd = "SymbolsOutline",
+    config = conf.symbols_outline,
+}
+
 
 return lsp

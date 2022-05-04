@@ -21,7 +21,7 @@ local createdir = function()
 end
 
 local disable_distribution_plugins = function()
-	vim.g.did_load_filetypes = 1
+--	vim.g.did_load_filetypes = 1
 	vim.g.did_load_fzf = 1
 	vim.g.did_load_gtags = 1
 	vim.g.did_load_gzip = 1
@@ -93,31 +93,31 @@ local dashboard_config = function()
 
 	vim.g.dashboard_custom_section = {
 		change_colorscheme = {
-			description = { " Scheme change              comma s c " },
+			description = { " Scheme change              comma s c" },
 			command = "DashboardChangeColorscheme",
 		},
 		find_frecency = {
-			description = { " File frecency              comma f r " },
+			description = { " File frecency              comma f r" },
 			command = "Telescope frecency",
 		},
 		find_history = {
-			description = { " File history               comma f e " },
+			description = { " File history               comma f e" },
 			command = "DashboardFindHistory",
 		},
 		find_project = {
-			description = { " Project find               comma f p " },
+			description = { " Project find               comma f p" },
 			command = "Telescope project",
 		},
 		find_file = {
-			description = { " File find                  comma f f " },
+			description = { " File find                  comma f f" },
 			command = "DashboardFindFile",
 		},
 		file_new = {
-			description = { " File new                   comma f n " },
+			description = { " File new                   comma f n" },
 			command = "DashboardNewFile",
 		},
 		find_word = {
-			description = { " Word find                  comma f w " },
+			description = { " Word find                  comma f w" },
 			command = "DashboardFindWord",
 		},
 	}
@@ -138,7 +138,7 @@ local load_core = function()
 	require("core.options")
 	require("core.mapping")
 	require("keymap")
-	--require("core.event")
+	require("core.event")
 
 	pack:load_compile()
 
