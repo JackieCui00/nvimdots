@@ -1,4 +1,5 @@
 return function()
+    require("common.log").debug("colorschemes edge is setuping")
     vim.cmd([[set background=dark]])
     vim.g.edge_style = "aura"
     vim.g.edge_enable_italic = 1

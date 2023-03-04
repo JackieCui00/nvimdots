@@ -1,4 +1,5 @@
 return function()
+    require("common.log").debug("colorschemes catppuccin is setuping")
     require("catppuccin").setup({
         dim_inactive = {
             enabled = false,
