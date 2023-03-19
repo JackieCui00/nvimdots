@@ -2,6 +2,7 @@ return {
     {
         -- dashboard when entering nvim
         'glepnir/dashboard-nvim',
+        enabled = false,
         lazy = true,
         event = "VimEnter",
         config = require("plugins.ui.dashboard"),
