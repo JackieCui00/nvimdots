@@ -59,5 +59,12 @@ return {
          lazy = false,
          priority = 10,
          config = require("plugins.ui.lualine"),
-     }
+     },
+     {
+         -- vscode like symbols
+         'onsails/lspkind.nvim',
+         lazy = false,
+         priority = 10,
+         config = require("plugins.ui.lspkind"),
+     },
 }

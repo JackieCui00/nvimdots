@@ -24,7 +24,8 @@ end
 
 local disable_distribution_plugins = function()
     log.debug("disabling distribution plugins")
-    vim.g.did_load_filetypes = 1
+    vim.g.do_filetype_lua = true
+    vim.g.did_load_filetypes = false
     vim.g.did_load_fzf = 1
     vim.g.did_load_gtags = 1
     vim.g.did_load_gzip = 1
@@ -71,10 +72,10 @@ local neovide_config = function()
 end
 
 local init_plugins = function()
-    log.debug("init plugins")
+    log.info("init plugins")
     local lazypath = globals.plugin_dir .. globals.path_sep .. "lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
-        log.debug("cloning lazy.nvim to %s", lazypath)
+        log.info("cloning lazy.nvim to ", lazypath)
         vim.fn.system({
             "git",
             "clone",

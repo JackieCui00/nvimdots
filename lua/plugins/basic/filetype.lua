@@ -3,7 +3,7 @@ return function()
         overrides = {
             extensions = {
                 -- Set the filetype of *.pn files to potion
-                -- pn = "potion",
+                c = "c",
             },
             literal = {
                 -- Set the filetype of files named "MyBackupFile" to lua
@@ -43,6 +43,7 @@ return function()
             shebang = {
                 -- Set the filetype of files with a dash shebang to sh
                 dash = "sh",
+                bash = "sh",
             },
         },
     })

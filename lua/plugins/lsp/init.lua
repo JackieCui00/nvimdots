@@ -62,7 +62,29 @@ return {
             'kdheepak/cmp-latex-symbols',
             'lukas-reineke/cmp-under-comparator',
             'saadparwaiz1/cmp_luasnip',
-            -- 'tzachar/cmp-tabnine' {'do': './install.sh'}
+            {
+                "zbirenbaum/copilot-cmp",
+                lazy = true,
+                dependencies = {
+                    {
+                        'zbirenbaum/copilot.lua',
+                        lazy = true,
+                        cmd = "Copilot",
+                        event = "InsertEnter",
+                        config = require("plugins.lsp.copilot")
+                    },
+                },
+                config = function ()
+                    require("copilot_cmp").setup({
+                        formatters = {
+                            label = require("copilot_cmp.format").format_label_text,
+                            -- insert_text = require("copilot_cmp.format").remove_existing,
+                            insert_text = require("copilot_cmp.format").format_insert_text,
+                            preview = require("copilot_cmp.format").deindent,
+                        },
+                    })
+                end
+            }
         },
         config = require("plugins.lsp.nvim_cmp"),
     },

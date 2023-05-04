@@ -13,7 +13,8 @@ return {
         -- " faster filetype.vim
         'nathom/filetype.nvim',
         lazy = false,
-        config = require("plugins.basic.filetype")
+        config = require("plugins.basic.filetype"),
+        enabled = false,
     },
     {
         -- better highlighter

@@ -32,18 +32,8 @@ return function()
             "Module",
             "Method",
             "Struct",
-            "Null",
+            -- "Null",
         },
-        -- filter_kind = {
-        --     "Class",
-        --     "Constructor",
-        --     "Enum",
-        --     "Function",
-        --     "Interface",
-        --     "Module",
-        --     "Method",
-        --     "Struct",
-        -- },
 
         -- Enum: split_width, full_width, last, none
         -- Determines line highlighting mode when multiple splits are visible.
@@ -146,7 +136,7 @@ return function()
 
         -- Set default symbol icons to use patched font icons (see https://www.nerdfonts.com/)
         -- "auto" will set it to true if nvim-web-devicons or lspkind-nvim is installed.
-        nerd_font = "auto",
+        nerd_font = "false",
 
         -- Call this function when aerial attaches to a buffer.
         -- Useful for setting keymaps. Takes a single `bufnr` argument.

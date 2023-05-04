@@ -269,6 +269,9 @@ return function()
             servers = {}, -- you can add additional lsp server so navigator will load the default for you
 
             clangd = {
+                capabilities = {
+                    offsetEncoding = { 'utf-16' },
+                },
                 cmd = {
                     'clangd',
                     '--background-index',
